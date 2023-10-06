@@ -16,8 +16,8 @@ def do_pack():
     file = "versions/web_static_{}.tgz".format(
             datetime.now().strftime('%Y%m%d%H%M%S')
             )
-    print(f"Packing web_static to {file}")
-    if local(f"mkdir -p versions && tar -cvzf {file} web_static").succeeded:
+    print("Packing web_static to {file}".format(file))
+    if local("mkdir -p versions && tar -cvzf {file} web_static".format(file)).succeeded:
         return file
     return None
 
@@ -34,15 +34,14 @@ def do_deploy(archive_path):
         web_static_dir = "/data/web_static/releases/"
         put(archive_path, "/tmp/")
         commands = [
-                f"rm -rf {web_static_dir}{no_ext}/",
-                f"mkdir -p {web_static_dir}{no_ext}/",
-                f"tar -xzf /tmp/{ext} -C {web_static_dir}{no_ext}/",
-                f"rm /tmp/{ext}",
-                f"mv {web_static_dir}{no_ext}/web_static/* " +
-                "{web_static_dir}{no_ext}/",
-                f"rm -rf {web_static_dir}{no_ext}/web_static",
-                f"rm -rf /data/web_static/current",
-                f"ln -s {web_static_dir}{no_ext}/ /data/web_static/current",
+                "rm -rf {}{}/".format(web_static_dir, no_ext),
+                "mkdir -p {}{}/".format(web_static_dir, no_ext),
+                "tar -xzf /tmp/{} -C {}{}/".format(ext, web_static_dir, no_ext),
+                "rm /tmp/{}".format(ext),
+                "mv {0}{1}/web_static/* {0}{1}/".format(web_static_dir, no_ext),
+                "rm -rf {}{}/web_static".format(web_static_dir, no_ext),
+                "rm -rf /data/web_static/current",
+                "ln -s {}{}/ /data/web_static/current".format(web_static_dir, no_ext),
                 ]
         for command in commands:
             run(command)
