@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" 
+"""
 Module doc
 """
 from os.path import exists, basename, splitext
