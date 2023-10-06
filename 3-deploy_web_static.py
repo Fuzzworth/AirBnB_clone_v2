@@ -18,7 +18,7 @@ def do_pack():
         file = "versions/web_static_{}.tgz".format(
                     datetime.now().strftime("%Y%m%d%H%M%S")
                 )
-        local(f"tar -cvzf {file} web_static")
+        local("tar -cvzf {} web_static".format(file))
         return file
     except Exception:
         return None
@@ -36,13 +36,13 @@ def do_deploy(archive_path):
         static_dir = "/data/web_static/releases/"
         put(archive_path, '/tmp/')
         commands = [
-                f"mkdir -p {static_dir}{ext}/",
-                f"tar -xzf /tmp/{file} -C {static_dir}{ext}/",
-                f"rm /tmp/{file}",
-                f"mv {static_dir}{ext}/web_static/* {static_dir}{ext}/",
-                f"rm -rf {static_dir}{ext}/web_static",
-                f"rm -rf /data/web_static/current",
-                f"ln -s {static_dir}{ext}/ /data/web_static/current",
+                "mkdir -p {}{}/".format(static_dir, ext),
+                "tar -xzf /tmp/{} -C {}{}/".format(file, static_dir, ext),
+                "rm /tmp/{}".format(file),
+                "mv {0}{1}/web_static/* {0}{1}/".format(static_dir, ext),
+                "rm -rf {}{}/web_static".format(static_dir, ext),
+                "rm -rf /data/web_static/current".format(),
+                "ln -s {}{}/ /data/web_static/current".format(static_dir, ext),
                 ]
         for command in commands:
             run(command)
