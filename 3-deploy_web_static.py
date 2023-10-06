@@ -4,7 +4,7 @@ Module Docs
 """
 from os.path import exists, isdir
 from datetime import datetime
-from fabric.api import  put, local, env, run
+from fabric.api import put, local, env, run
 env.hosts = ["54.237.61.71", "54.146.64.127"]
 
 
