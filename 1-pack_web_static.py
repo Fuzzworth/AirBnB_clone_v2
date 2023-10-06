@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" module doc
+"""
+Module docs
 """
 from fabric.api import task, local
 from datetime import datetime
@@ -7,8 +8,8 @@ from datetime import datetime
 
 @task
 def do_pack():
-    """ method doc
-        sudo fab -f 1-pack_web_static.py do_pack
+    """
+    Function Docs
     """
     formatted_dt = datetime.now().strftime('%Y%m%d%H%M%S')
     mkdir = "mkdir -p versions"
