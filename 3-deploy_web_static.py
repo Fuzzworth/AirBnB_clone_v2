@@ -20,7 +20,7 @@ def do_pack():
                 )
         local(f"tar -cvzf {file} web_static")
         return file
-    except:
+    except Exception:
         return None
 
 
@@ -47,7 +47,7 @@ def do_deploy(archive_path):
         for command in commands:
             run(command)
         return True
-    except:
+    except Exception:
         return False
 
 
