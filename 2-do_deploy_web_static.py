@@ -38,8 +38,8 @@ def do_deploy(archive_path):
                 f"mkdir -p {web_static_dir}{no_ext}/",
                 f"tar -xzf /tmp/{ext} -C {web_static_dir}{no_ext}/",
                 f"rm /tmp/{ext}",
-                f"mv {web_static_dir}{no_ext}/web_static/*
-                    {web_static_dir}{no_ext}/",
+                f"mv {web_static_dir}{no_ext}/web_static/* " + 
+                    "{web_static_dir}{no_ext}/",
                 f"rm -rf {web_static_dir}{no_ext}/web_static",
                 f"rm -rf /data/web_static/current",
                 f"ln -s {web_static_dir}{no_ext}/ /data/web_static/current",
