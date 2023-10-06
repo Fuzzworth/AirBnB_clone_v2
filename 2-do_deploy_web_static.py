@@ -1,39 +1,36 @@
 #!/usr/bin/python3
-""" module doc
+""" 
+Module doc
 """
-from fabric.api import task, local, env, put, run
+from os.path import exists, basename, splitext
 from datetime import datetime
-import os
+from fabric.api import env, task, put, local, run
 
-env.hosts = ['18.207.1.87', '52.206.189.175']
+env.hosts = ["54.237.61.71", "54.146.64.127"]
 
 
-@task
 def do_pack():
-    """ method doc
-        sudo fab -f 1-pack_web_static.py do_pack
     """
-    formatted_dt = datetime.now().strftime('%Y%m%d%H%M%S')
-    mkdir = "mkdir -p versions"
-    path = "versions/web_static_{}.tgz".format(formatted_dt)
-    print("Packing web_static to {}".format(path))
-    if local("{} && tar -cvzf {} web_static".format(mkdir, path)).succeeded:
-        return path
+    Function Docs
+    """
+    file = "versions/web_static_{}.tgz".format(
+                datetime.now().strftime('%Y%m%d%H%M%S')
+            )
+    print(f"Packing web_static to {file}")
+    if local(f"mkdir -p versions && tar -cvzf {file} web_static").succeeded:
+        return file
     return None
 
 
-@task
 def do_deploy(archive_path):
-    """ method doc
-        fab -f 2-do_deploy_web_static.py do_deploy:
-        archive_path=versions/web_static_20231004201306.tgz
-        -i ~/.ssh/id_rsa -u ubuntu
+    """
+    Function Docs
     """
     try:
-        if not os.path.exists(archive_path):
+        if not exists(archive_path):
             return False
-        fn_with_ext = os.path.basename(archive_path)
-        fn_no_ext, ext = os.path.splitext(fn_with_ext)
+        ext = basename(archive_path)
+        no_ext, ext = splitext(ext)
         dpath = "/data/web_static/releases/"
         put(archive_path, "/tmp/")
         run("rm -rf {}{}/".format(dpath, fn_no_ext))
