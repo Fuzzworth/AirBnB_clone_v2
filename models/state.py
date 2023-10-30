@@ -12,8 +12,8 @@ storage_type = getenv("HBNB_TYPE_STORAGE")
 class State(BaseModel, Base):
     """ State class """
 
-    __tablename__ = 'states'
     if storage_type == "db":
+        __tablename__ = 'states'
         name = Column(String(128), nullable=False)
         cities = relationship('City', cascade="all,delete", backref="state")
     else:
@@ -33,3 +33,8 @@ class State(BaseModel, Base):
                 if city.state_id == self.id:
                     citiesList.append(city)
             return citiesList
+    def __init__(self, *args, **kwargs):
+        """
+        Function docs
+        """
+        super().__init__(*args, **kwargs)
