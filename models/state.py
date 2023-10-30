@@ -33,6 +33,7 @@ class State(BaseModel, Base):
                 if city.state_id == self.id:
                     citiesList.append(city)
             return citiesList
+    
     def __init__(self, *args, **kwargs):
         """
         Function docs
