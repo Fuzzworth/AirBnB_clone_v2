@@ -24,7 +24,7 @@ def task1():
     return 'HBNB'
 
 @app.route('/c/<text>', strict_slashes=False)
-def cisfun(text):
+def task2(text):
     """
     Function Docs
     """
