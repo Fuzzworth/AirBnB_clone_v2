@@ -5,6 +5,7 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.city import City
 from os import getenv
+from models import storage
 
 storage_type = getenv("HBNB_TYPE_STORAGE")
 
@@ -26,14 +27,13 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """getter docuemnt"""
-            from models import storage
             citiesList = []
             citiesAll = storage.all(City)
             for city in citiesAll.values():
                 if city.state_id == self.id:
                     citiesList.append(city)
             return citiesList
-    
+
     def __init__(self, *args, **kwargs):
         """
         Function docs
