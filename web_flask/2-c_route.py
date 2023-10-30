@@ -23,6 +23,7 @@ def task1():
     """
     return 'HBNB'
 
+
 @app.route('/c/<text>', strict_slashes=False)
 def task2(text):
     """
