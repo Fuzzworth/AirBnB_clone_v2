@@ -74,7 +74,7 @@ class DBStorage:
         if obj:
             self.__session.delete(obj)
 
-    def clode(self):
+    def close(self):
         """
         Function docs
         """
